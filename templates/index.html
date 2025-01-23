@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            display: flex;
+            width: 900px;
+            height: 500px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .login-left {
+            flex: 1;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-left h1 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .login-left p {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .login-right {
+            flex: 1;
+            background: #ffffff;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-right h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        form input {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        form .remember-me {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        form button {
+            padding: 10px;
+            margin: 5px 0;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            opacity: 0.9;
+        }
+
+        form p {
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        form p a {
+            color: #1e3c72;
+            text-decoration: none;
+        }
+
+        .toggle-link {
+            color: #1e3c72;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        function toggleForms() {
+            const signInForm = document.getElementById('sign-in-form');
+            const createAccountForm = document.getElementById('create-account-form');
+            signInForm.classList.toggle('hidden');
+            createAccountForm.classList.toggle('hidden');
+        }
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-left">
+            <div class="logo">
+                <img src="club.png" alt="Logo" />
+            </div>
+            <h1>Welcome to Football Analytics</h1>
+            <p>Access your personalized football stats and dashboards.</p>
+        </div>
+        <div class="login-right">
+            <h2 id="form-title">Sign In</h2>
+
+            <!-- Sign In Form -->
+            <div id="sign-in-form">
+                <form>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter your email">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter your password">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember Me</label>
+                    </div>
+                    <button id="login-btn" type="button">Login</button>
+                    <button id="signup-btn" type="button" onclick="toggleForms()">Create Account</button>
+                </form>
+                <p>Forgot your password? <a href="#">Get Help</a></p>
+            </div>
+
+            <!-- Create Account Form (Initially hidden) -->
+            <div id="create-account-form" class="hidden">
+                <form>
+                    <label for="new-email">Email</label>
+                    <input type="email" id="new-email" placeholder="Enter your email">
+                    <label for="new-password">Password</label>
+                    <input type="password" id="new-password" placeholder="Create a password">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" placeholder="Confirm your password">
+                    <button id="create-btn" type="button">Create Account</button>
+                </form>
+                <p>Already have an account? <span class="toggle-link" onclick="toggleForms()">Sign In</span></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
