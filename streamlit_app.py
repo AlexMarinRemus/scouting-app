@@ -22,14 +22,20 @@ players = filtered_df['Full name'].unique().tolist()
 
 st.title("Compare Two Players")
 
-# Create two columns for the two dropdowns
+# Find indexes of default players (fall back to 0 or 1 if not found)
+default_player1 = "L. Munteanu"
+default_player2 = "D. Alibec"
+
+index1 = players.index(default_player1) if default_player1 in players else 0
+index2 = players.index(default_player2) if default_player2 in players else 1
+
 col1, col2 = st.columns(2)
 
 with col1:
-    player1 = st.selectbox("Select Player 1:", players, index=players.index("L. Munteanu") if "L. Munteanu" in players else 0)
+    player1 = st.selectbox("Select Player 1:", players, index=index1)
 
 with col2:
-    player2 = st.selectbox("Select Player 2:", players, index=players.index("D. Alibec") if "D. Alibec" in players else 1)
+    player2 = st.selectbox("Select Player 2:", players, index=index2)
 
 if player1 == player2:
     st.warning("Please select two different players to compare.")
