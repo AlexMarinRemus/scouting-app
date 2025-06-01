@@ -15,14 +15,13 @@ filtered_df['xG per shot per 90'] = filtered_df.apply(
 )
 
 # Select relevant columns
-players_of_interest = ['L. Munteanu', 'D. Alibec']
+players_of_interest = ['Louis Munteanu', 'Denis Alibec']
 compare_df = filtered_df[filtered_df['Full name'].isin(players_of_interest)][
     ['Full name', 'Birthday', 'Minutes played', 'xG per shot per 90', 'Aerial duels won, %', 'Goals', 'Shots per 90', 'xG per 90']
 ]
 
 if compare_df.shape[0] < 2:
     st.error("Could not find both players in the dataset.")
-    st.error(len(df))
 else:
     # Prepare data as a dict for the template
     data = {}
