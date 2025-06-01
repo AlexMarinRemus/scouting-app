@@ -18,7 +18,7 @@ filtered_df['xG per shot per 90'] = filtered_df.apply(
 cols = ['Full name', 'Birthday', 'Minutes played', 'Goals', 'Shots per 90', 'xG per 90', 'xG per shot per 90', 'Aerial duels won, %']
 
 # Fix player to compare against
-fixed_player = "L. Munteanu"
+fixed_player = "Louis Munteanu"
 
 # Get list of all players except the fixed one
 all_players = filtered_df['Full name'].unique().tolist()
