@@ -22,6 +22,7 @@ compare_df = filtered_df[filtered_df['Full name'].isin(players_of_interest)][
 
 if compare_df.shape[0] < 2:
     st.error("Could not find both players in the dataset.")
+    st.error(len(df))
 else:
     # Prepare data as a dict for the template
     data = {}
