@@ -23,8 +23,8 @@ players = filtered_df['Full name'].unique().tolist()
 st.title("Compare Two Players")
 
 # Find indexes of default players (fall back to 0 or 1 if not found)
-default_player1 = "L. Munteanu"
-default_player2 = "D. Alibec"
+default_player1 = "Louis Munteanu"
+default_player2 = "Denis Alibec"
 
 index1 = players.index(default_player1) if default_player1 in players else 0
 index2 = players.index(default_player2) if default_player2 in players else 1
