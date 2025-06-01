@@ -14,28 +14,30 @@ filtered_df['xG per shot per 90'] = filtered_df.apply(
     axis=1
 )
 
-# Relevant columns
+# Relevant columns to show
 cols = ['Full name', 'Birthday', 'Minutes played', 'Goals', 'Shots per 90', 'xG per 90', 'xG per shot per 90', 'Aerial duels won, %']
 
-# Fix player to compare against
-fixed_player = "Louis Munteanu"
+# List of players for dropdowns
+players = filtered_df['Full name'].unique().tolist()
 
-# Get list of all players except the fixed one
-all_players = filtered_df['Full name'].unique().tolist()
-if fixed_player in all_players:
-    all_players.remove(fixed_player)
+st.title("Compare Two Players")
 
-st.title("Compare Player to L. Munteanu")
+# Create two columns for the two dropdowns
+col1, col2 = st.columns(2)
 
-# User selects player from dropdown
-selected_player = st.selectbox("Select a player to compare:", all_players)
+with col1:
+    player1 = st.selectbox("Select Player 1:", players, index=players.index("L. Munteanu") if "L. Munteanu" in players else 0)
 
-# Filter data for the two players
-compare_df = filtered_df[filtered_df['Full name'].isin([fixed_player, selected_player])][cols]
+with col2:
+    player2 = st.selectbox("Select Player 2:", players, index=players.index("D. Alibec") if "D. Alibec" in players else 1)
 
-if compare_df.shape[0] < 2:
-    st.error("Could not find both players in the dataset.")
+if player1 == player2:
+    st.warning("Please select two different players to compare.")
 else:
+    # Filter dataframe for these two players
+    compare_df = filtered_df[filtered_df['Full name'].isin([player1, player2])][cols]
+
+    # Prepare data dict for the template
     data = {}
     for _, row in compare_df.iterrows():
         data[row['Full name']] = {
@@ -48,9 +50,10 @@ else:
             'Aerial duels won, %': round(row['Aerial duels won, %'], 2)
         }
 
+    # Render HTML with Jinja2 template
     env = Environment(loader=FileSystemLoader('.'))
-    template = env.get_template('template/index.html')
+    template = env.get_template('templates/index.html')
 
-    rendered_html = template.render(player1=fixed_player, player2=selected_player, data=data)
+    rendered_html = template.render(player1=player1, player2=player2, data=data)
 
     st.components.v1.html(rendered_html, height=400, scrolling=True)
