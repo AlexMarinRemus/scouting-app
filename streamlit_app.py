@@ -38,7 +38,7 @@ else:
 
     # Load template
     env = Environment(loader=FileSystemLoader('.'))
-    template = env.get_template('template.html')
+    template = env.get_template('index.html')
 
     # Render HTML
     rendered_html = template.render(player1=players_of_interest[0], player2=players_of_interest[1], data=data)
