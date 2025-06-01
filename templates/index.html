@@ -17,7 +17,7 @@
             text-align: center;
         }
         th {
-            background-color: #f4a261;
+            background-color: #D3D3D3;
             color: white;
         }
         tr:nth-child(even) {
@@ -27,7 +27,15 @@
             font-size: 20px;
             font-weight: bold;
             margin-bottom: 15px;
-            color: #e76f51;
+            color: #888;
+        }
+        .green {
+            color: green;
+            font-weight: bold;
+        }
+        .red {
+            color: red;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -45,8 +53,18 @@
             {% for stat in data[player1].keys() %}
             <tr>
                 <td>{{ stat.replace('_', ' ').title() }}</td>
-                <td>{{ data[player1][stat] }}</td>
-                <td>{{ data[player2][stat] }}</td>
+                {% set val1 = data[player1][stat] %}
+                {% set val2 = data[player2][stat] %}
+                {% if val1 < val2 %}
+                    <td class="red">{{ val1 }}</td>
+                    <td class="green">{{ val2 }}</td>
+                {% elif val1 > val2 %}
+                    <td class="green">{{ val1 }}</td>
+                    <td class="red">{{ val2 }}</td>
+                {% else %}
+                    <td>{{ val1 }}</td>
+                    <td>{{ val2 }}</td>
+                {% endif %}
             </tr>
             {% endfor %}
         </tbody>

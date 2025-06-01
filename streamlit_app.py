@@ -50,6 +50,7 @@ else:
             'Birthday': row['Birthday'].strftime('%Y-%m-%d') if pd.notnull(row['Birthday']) else 'N/A',
             'Minutes played': int(row['Minutes played']),
             'Goals': int(row['Goals']),
+            'Assists': int(row['Assists']),
             'Shots per 90': round(row['Shots per 90'], 2),
             'xG per 90': round(row['xG per 90'], 2),
             'xG per shot per 90': round(row['xG per shot per 90'], 4),
