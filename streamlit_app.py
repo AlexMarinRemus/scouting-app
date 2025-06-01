@@ -8,7 +8,7 @@ df = pd.read_excel(url, engine='openpyxl')
 
 # Data cleaning and filtering
 df['Birthday'] = pd.to_datetime(df['Birthday'], errors='coerce')
-filtered_df = df[(df['Minutes played'] >= 600) & (df['Goals'] > 3)]
+filtered_df = df[(df['Minutes played'] >= 600)]
 filtered_df['xG per shot per 90'] = filtered_df.apply(
     lambda row: row['xG per 90'] / row['Shots per 90'] if row['Shots per 90'] > 0 else 0,
     axis=1
