@@ -3,7 +3,8 @@ import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 
 # Load data
-df = pd.read_excel("Romanian-Superliga-24-25.xlsx")
+url = "https://raw.githubusercontent.com/AlexMarinRemus/scouting-app/main/Romanian-Superliga-24-25.xlsx"
+df = pd.read_excel(url, engine='openpyxl')
 
 # Data cleaning and filtering
 df['Birthday'] = pd.to_datetime(df['Birthday'], errors='coerce')
