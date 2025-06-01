@@ -49,7 +49,7 @@ else:
         }
 
     env = Environment(loader=FileSystemLoader('.'))
-    template = env.get_template('template.html')
+    template = env.get_template('index.html')
 
     rendered_html = template.render(player1=fixed_player, player2=selected_player, data=data)
 
