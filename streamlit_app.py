@@ -15,7 +15,7 @@ filtered_df['xG per shot per 90'] = filtered_df.apply(
 )
 
 # Relevant columns to show
-cols = ['Full name', 'Birthday', 'Minutes played', 'Goals', 'Shots per 90', 'xG per 90', 'xG per shot per 90', 'Aerial duels won, %']
+cols = ['Full name', 'Birthday', 'Minutes played', 'Goals', 'Assists', 'Shots per 90', 'xG per 90', 'xG per shot per 90', 'Aerial duels won, %']
 
 # List of players for dropdowns
 players = filtered_df['Full name'].unique().tolist()
