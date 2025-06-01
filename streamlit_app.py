@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from jinja2 import Environment, FileSystemLoader
 
-# Load data
+# Load data from GitHub raw URL
 url = "https://raw.githubusercontent.com/AlexMarinRemus/scouting-app/main/Romanian-Superliga-24-25.xlsx"
 df = pd.read_excel(url, engine='openpyxl')
 
@@ -14,16 +14,28 @@ filtered_df['xG per shot per 90'] = filtered_df.apply(
     axis=1
 )
 
-# Select relevant columns
-players_of_interest = ['Louis Munteanu', 'Denis Alibec']
-compare_df = filtered_df[filtered_df['Full name'].isin(players_of_interest)][
-    ['Full name', 'Birthday', 'Minutes played', 'xG per shot per 90', 'Aerial duels won, %', 'Goals', 'Shots per 90', 'xG per 90']
-]
+# Relevant columns
+cols = ['Full name', 'Birthday', 'Minutes played', 'Goals', 'Shots per 90', 'xG per 90', 'xG per shot per 90', 'Aerial duels won, %']
+
+# Fix player to compare against
+fixed_player = "L. Munteanu"
+
+# Get list of all players except the fixed one
+all_players = filtered_df['Full name'].unique().tolist()
+if fixed_player in all_players:
+    all_players.remove(fixed_player)
+
+st.title("Compare Player to L. Munteanu")
+
+# User selects player from dropdown
+selected_player = st.selectbox("Select a player to compare:", all_players)
+
+# Filter data for the two players
+compare_df = filtered_df[filtered_df['Full name'].isin([fixed_player, selected_player])][cols]
 
 if compare_df.shape[0] < 2:
     st.error("Could not find both players in the dataset.")
 else:
-    # Prepare data as a dict for the template
     data = {}
     for _, row in compare_df.iterrows():
         data[row['Full name']] = {
@@ -36,12 +48,9 @@ else:
             'Aerial duels won, %': round(row['Aerial duels won, %'], 2)
         }
 
-    # Load template
     env = Environment(loader=FileSystemLoader('.'))
-    template = env.get_template('templates/index.html')
+    template = env.get_template('template.html')
 
-    # Render HTML
-    rendered_html = template.render(player1=players_of_interest[0], player2=players_of_interest[1], data=data)
+    rendered_html = template.render(player1=fixed_player, player2=selected_player, data=data)
 
-    st.title("Player Comparison: L. Munteanu vs D. Alibec")
     st.components.v1.html(rendered_html, height=400, scrolling=True)
